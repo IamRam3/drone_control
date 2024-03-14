@@ -11,9 +11,9 @@ hover_file_path = str(rospack.get_path('drone_control')+"/../../hover_bebop.txt"
 
 print(killing_file_path)
 def main():
-    pub_reset = rospy.Publisher('/bebop/reset', Empty, queue_size=1)
-    pub_land = rospy.Publisher('/bebop/land', Empty, queue_size=1)
-    pub_manual = rospy.Publisher('/control/set_manual_mode', Bool, queue_size=1)
+    pub_reset = rospy.Publisher('/mavros/cmd/command', Empty, queue_size=1)
+    pub_land = rospy.Publisher('/mavros/cmd/land', Empty, queue_size=1)
+    pub_manual = rospy.Publisher('/mavros/set_mode', Bool, queue_size=1)
 
 
     rospy.init_node('kill_button', anonymous=True)
