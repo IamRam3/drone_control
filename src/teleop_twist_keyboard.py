@@ -144,7 +144,7 @@ sub = rospy.Subscriber("/odom_slam_sf/current_pose", Pose, pose_callback, queue_
 takeoff_topic = rospy.Publisher("/bebop/takeoff", Empty, queue_size=1)
 # takeoff_topic = rospy.Publisher("/tello/takeoff", Empty, queue_size=1)
 
-land_topic = rospy.Publisher("/bebop/land", Empty, queue_size=1)
+land_topic = rospy.Publisher("/MAV/land", Empty, queue_size=1)
 # land_topic = rospy.Publisher("/tello/land", Empty, queue_size=1)
 
 read_tag_pub= rospy.Publisher("cv_detection/inventory/read_tag", Empty, queue_size=1)

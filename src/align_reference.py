@@ -79,7 +79,7 @@ class adjust_position():
                     "/control/align_reference/set_pid_config", String, self.set_pid_config, queue_size=1)
         rospy.Subscriber(
                     "/control/align_reference/set_camera_angle", Float32, self.set_camera_angle, queue_size=1)
-        rospy.Subscriber('/bebop/land', Empty, self.land,queue_size=10)
+        rospy.Subscriber('/MAV/land', Empty, self.land,queue_size=10)
         rospy.Subscriber('/bebop/reset', Empty, self.land,queue_size=10)
         self.running_sub= rospy.Subscriber(
             "control/align_reference/set_running_state", Bool, self.set_running_state, queue_size=1)

@@ -59,7 +59,7 @@ class vso_controler(object): # visual odometry drone controler
 
         rospy.Subscriber('/bebop/states/ardrone3/PilotingState/AltitudeChanged', Ardrone3PilotingStateAltitudeChanged, self.altitude_callback)
         rospy.Subscriber('/bebop/odom/', Odometry, self.odometry_callback)
-        rospy.Subscriber('/bebop/land', Empty, self.land)
+        rospy.Subscriber('/MAV/land', Empty, self.land)
         rospy.Subscriber('/bebop/takeoff', Empty, self.takeoff)
         
 

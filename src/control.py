@@ -7,7 +7,8 @@ from geometry_msgs.msg import PoseStamped, TwistStamped, Twist, Point, Pose, Qua
 from nav_msgs.msg import Odometry
 from std_msgs.msg import Float64, Empty, Bool
 from std_srvs.srv import Trigger, TriggerRequest, TriggerResponse, SetBool, SetBoolRequest, SetBoolResponse
-from bebop_msgs.msg import Ardrone3PilotingStateAltitudeChanged
+#from bebop_msgs.msg import Ardrone3PilotingStateAltitudeChanged
+
 import ros_numpy
 
 from PID import PID
@@ -33,8 +34,8 @@ class vso_controler(object): # visual odometry drone controler
     
 
 
-    camera_angle = Twist()
-    setted_vel = Twist()
+    #camera_angle = Twist()
+    setted_vel = TwistStamped()
 
     control_mode = "position" # position or velocity  
     precision = np.array([0.15,0.15,0.1,0.1])
@@ -72,10 +73,10 @@ class vso_controler(object): # visual odometry drone controler
         self.last_goal_pose_time = rospy.Time.now()
 
         #topics and services
-        self.setpoint_velocity_pub = rospy.Publisher('/bebop/cmd_vel', Twist, queue_size=1)
-        self.setpoint_moveby_pub = rospy.Publisher('/bebop/moveby', Twist, queue_size=1)
+        self.setpoint_velocity_pub = rospy.Publisher('/mavros/setpoint_velocity/cmd_vel', Twist, queue_size=1)
+        '''self.setpoint_moveby_pub = rospy.Publisher('/bebop/moveby', Twist, queue_size=1)
 
-        self.camera_angle_pub = rospy.Publisher('/bebop/camera_control', Twist, queue_size=10)
+        self.camera_angle_pub = rospy.Publisher('/bebop/camera_control', Twist, queue_size=10)'''
 
         self.running = rospy.get_param('~running',True)
         self.vso_on = rospy.get_param('~vso_on',True)
@@ -87,11 +88,11 @@ class vso_controler(object): # visual odometry drone controler
 
         calibrate_pid = rospy.get_param('~calibrate_pid',False)
 
-        rospy.Subscriber('/bebop/land', Empty, self.land)
-        rospy.Subscriber('/bebop/reset', Empty, self.land)
+        rospy.Subscriber('/MAV/land', Empty, self.land)
+        rospy.Subscriber('/MAV/reset', Empty, self.land)
         # rospy.Subscriber('/bebop/takeoff', Empty, self.takeoff)
         
-        rospy.Subscriber('/odom_slam_sf/current_pose', Pose, self.current_pose_callback)
+        rospy.Subscriber('/orbslam3/camera_pose', Pose, self.current_pose_callback)
 
         
         rospy.Subscriber('/control/position', Pose, self.position_callback)
@@ -114,8 +115,8 @@ class vso_controler(object): # visual odometry drone controler
             "control/current_position", Pose, queue_size=1)
         self.error_pose_pub = rospy.Publisher(
             "control/error", Pose, queue_size=1)
-        self.aligned = rospy.Publisher(
-            "/control/aligned", Bool, queue_size=1)
+        '''self.aligned = rospy.Publisher(
+            "/control/aligned", Bool, queue_size=1)'''
             
         #dynamic parameters serve
         if calibrate_pid:
@@ -172,7 +173,8 @@ class vso_controler(object): # visual odometry drone controler
         
 
     def takeoff(self,callback_data):
-        self.align_camera()
+        #self.align_camera()
+        pass
         
     def position_callback(self, goal_pose):
         self.goal_pose = goal_pose
@@ -306,11 +308,11 @@ class vso_controler(object): # visual odometry drone controler
         return tf.transformations.euler_from_quaternion(quarterion)
 
 
-    def align_camera(self):
+    '''def align_camera(self):
         self.camera_angle.angular.x = 0
         self.camera_angle.angular.y = 3
         self.camera_angle.angular.z = 0
-        self.camera_angle_pub.publish(self.camera_angle)
+        self.camera_angle_pub.publish(self.camera_angle)'''
 
     def calculate_vel(self,pose):
 
