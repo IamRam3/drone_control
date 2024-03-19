@@ -140,7 +140,7 @@ pickup_box_state = pickup_box()
 inventory_state = inventory()
 
 
-sub = rospy.Subscriber("/odom_slam_sf/current_pose", Pose, pose_callback, queue_size=1)
+sub = rospy.Subscriber("/orbslam3/camera_pose", Pose, pose_callback, queue_size=1)
 takeoff_topic = rospy.Publisher("/bebop/takeoff", Empty, queue_size=1)
 # takeoff_topic = rospy.Publisher("/tello/takeoff", Empty, queue_size=1)
 

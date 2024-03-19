@@ -25,11 +25,11 @@ def pose_callback(data):
     pose = ros_numpy.numpify(data).tolist()
     
 rospy.init_node('position_recorder', anonymous=True)
-sub = rospy.Subscriber("/odom_slam_sf/current_pose", Pose, pose_callback, queue_size=1)
+sub = rospy.Subscriber("/orbslam3/camera_pose", Pose, pose_callback, queue_size=1)
 
 routine_name = "default"
 while decision != 2 :
-    print("Selected routine: "+routine_name)
+    print("Selected routine : "+routine_name)
     print (' 1-5: save position \n  7: change routine \n 8: remove routine \n 9: exit ')
     decision = input()                                                                                                         
     if decision >= 1 and decision < 7:

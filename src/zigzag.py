@@ -26,7 +26,7 @@ def main():
 
         t = raw_input()
         rospy.loginfo("[0,0,-0.5]")
-        pub.publish(array_to_vec([0,0,-0.5])
+        pub.publish(array_to_vec([0,0,-0.5]))
         t = raw_input()
         # rate.sleep()
 
