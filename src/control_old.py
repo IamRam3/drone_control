@@ -7,7 +7,7 @@ from geometry_msgs.msg import PoseStamped, TwistStamped, Twist, Point
 from nav_msgs.msg import Odometry
 from std_msgs.msg import Float64, Empty, Bool
 from std_srvs.srv import Trigger, TriggerRequest, TriggerResponse, SetBool, SetBoolRequest, SetBoolResponse
-from bebop_msgs.msg import Ardrone3PilotingStateAltitudeChanged
+#from bebop_msgs.msg import Ardrone3PilotingStateAltitudeChanged
 import ros_numpy
 
 from PID import PID
@@ -48,7 +48,7 @@ class vso_controler(object): # visual odometry drone controler
         self.rate = rospy.Rate(60)  # refresh rate (Hz)
 
         #topics and services
-        self.setpoint_velocity_pub = rospy.Publisher('/bebop/cmd_vel', Twist, queue_size=1)
+        self.setpoint_velocity_pub = rospy.Publisher('/mavros/setpoint_velocity/cmd_vel', Twist, queue_size=1)
         self.camera_angle_pub = rospy.Publisher('/bebop/camera_control', Twist, queue_size=10)
 
         self.running = rospy.get_param('~running',True)
@@ -60,7 +60,7 @@ class vso_controler(object): # visual odometry drone controler
         rospy.Subscriber('/bebop/states/ardrone3/PilotingState/AltitudeChanged', Ardrone3PilotingStateAltitudeChanged, self.altitude_callback)
         rospy.Subscriber('/bebop/odom/', Odometry, self.odometry_callback)
         rospy.Subscriber('/MAV/land', Empty, self.land)
-        rospy.Subscriber('/bebop/takeoff', Empty, self.takeoff)
+        rospy.Subscriber('/dysl/takeoff', Empty, self.takeoff)
         
 
         rospy.Subscriber('/control/position', Point, self.position_callback)

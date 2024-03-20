@@ -47,7 +47,7 @@ rospy.init_node('Vel_Control_Node', anonymous=True)
 rate = rospy.Rate(20)  # publish at 20Hz
 #                           bebop
 setpoint_velocity_pub = rospy.Publisher(
-    '/bebop/cmd_vel', Twist, queue_size=10)
+    '/mavros/setpoint_velocity/cmd_vel', Twist, queue_size=10)
 #takeoff()
 set_velocity.linear.z = 1
 set_velocity.linear.y = 0

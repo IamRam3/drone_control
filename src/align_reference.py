@@ -80,11 +80,11 @@ class adjust_position():
         rospy.Subscriber(
                     "/control/align_reference/set_camera_angle", Float32, self.set_camera_angle, queue_size=1)
         rospy.Subscriber('/MAV/land', Empty, self.land,queue_size=10)
-        rospy.Subscriber('/bebop/reset', Empty, self.land,queue_size=10)
+        #rospy.Subscriber('/bebop/reset', Empty, self.land,queue_size=10)
         self.running_sub= rospy.Subscriber(
             "control/align_reference/set_running_state", Bool, self.set_running_state, queue_size=1)
         
-        self.setpoint_vel_pub = rospy.Publisher('/bebop/cmd_vel', Twist, queue_size=1)
+        self.setpoint_vel_pub = rospy.Publisher('/mavros/setpoint_velocity/cmd_vel', Twist, queue_size=1)
         self.aligned = rospy.Publisher(
             "/control/align_reference/aligned", Bool, queue_size=10)
         self.pid_error_pub = rospy.Publisher(

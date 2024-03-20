@@ -141,7 +141,7 @@ inventory_state = inventory()
 
 
 sub = rospy.Subscriber("/orbslam3/camera_pose", Pose, pose_callback, queue_size=1)
-takeoff_topic = rospy.Publisher("/bebop/takeoff", Empty, queue_size=1)
+takeoff_topic = rospy.Publisher("/dysl/takeoff", Empty, queue_size=1)
 # takeoff_topic = rospy.Publisher("/tello/takeoff", Empty, queue_size=1)
 
 land_topic = rospy.Publisher("/MAV/land", Empty, queue_size=1)
@@ -158,7 +158,7 @@ running_inventory = True
 if __name__=="__main__":
     settings = termios.tcgetattr(sys.stdin)
 
-    pub = rospy.Publisher('/bebop/cmd_vel', Twist, queue_size = 1)
+    pub = rospy.Publisher('/mavros/setpoint_velocity/cmd_vel', Twist, queue_size = 1)
     # pub = rospy.Publisher('/tello/cmd_vel', Twist, queue_size = 1)
 
     rospy.init_node('teleop_twist_keyboard')

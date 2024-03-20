@@ -90,7 +90,7 @@ class vso_controler(object): # visual odometry drone controler
 
         rospy.Subscriber('/MAV/land', Empty, self.land)
         rospy.Subscriber('/MAV/reset', Empty, self.land)
-        # rospy.Subscriber('/bebop/takeoff', Empty, self.takeoff)
+        # rospy.Subscriber('/dysl/takeoff', Empty, self.takeoff)
         
         rospy.Subscriber('/orbslam3/camera_pose', Pose, self.current_pose_callback)
 
@@ -173,8 +173,7 @@ class vso_controler(object): # visual odometry drone controler
         
 
     def takeoff(self,callback_data):
-        #self.align_camera()
-        pass
+        self.align_camera()
         
     def position_callback(self, goal_pose):
         self.goal_pose = goal_pose
